@@ -1,0 +1,9 @@
+{
+  "short_name": "ML Projects",
+  "name": "Collection of interesting Machine Learning and Deep Learning Projects",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
