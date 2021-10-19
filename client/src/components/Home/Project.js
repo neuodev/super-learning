@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
+
 const Project = ({ project }) => {
   return (
     <Link
@@ -23,8 +25,18 @@ const Project = ({ project }) => {
             <li
               className="mr-3 text-xs font-light uppercase bg-gray-200 px-2 py-1 rounded-2xl"
               key={idx}
+              data-for={"main" + idx}
+              data-tip={tag.tip}
+              data-iscapture="true"
             >
-              {tag}
+              <ReactTooltip
+                id={"main" + idx}
+                place={"top"}
+                type={"info"}
+                effect={"solid"}
+                multiline={true}
+              />
+              {tag.tag}
             </li>
           ))}
         </ul>

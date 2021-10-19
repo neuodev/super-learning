@@ -8,13 +8,29 @@ const PROJECTS_LIST = [
   {
     name: "Handwritten Digit Recognition",
     src: MNISTPreview,
-    tags: ["DL", "MNIST dataset"],
+    tags: [
+      {
+        tag: "DL",
+        tip: "Deep Learning",
+      },
+      {
+        tag: "MNIST dataset",
+      },
+    ],
     to: ROUTES.MNIST,
   },
   {
     name: "Word Embedding",
     src: EmbeddingPreview,
-    tags: ["NLP", "Amazon dataset"],
+    tags: [
+      {
+        tag: "NLP",
+        tip: "Natural Language Proccessing",
+      },
+      {
+        tag: "Amazon dataset",
+      },
+    ],
     to: ROUTES.WORD_EMBEDDING,
   },
 ];
