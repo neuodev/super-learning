@@ -8,6 +8,10 @@ env = environ.Env()
 tweets_url = 'https://api.twitter.com/2/users/:id/tweets'
 headers = {"Authorization": f"Bearer {env('TWITTER_BEARER_TOKEN')}"}
 
+POSITIVE = 'Positive'
+NEGATIVE = 'Negative'
+NATURAL = 'Natural'
+
 def get_user_tweets(id, token = None, max_results = 10):
     params = {
         'pagination_token': token,
@@ -44,11 +48,11 @@ def analyse_tweets(tweets):
     for tweet in tweets:
         subjectivity = TextBlob(tweet).sentiment.subjectivity
         polarity = TextBlob(tweet).sentiment.polarity
-        analysis = 'Positive'
+        analysis = POSITIVE
         if polarity < 0 :
-            analysis = 'Negative'
+            analysis = NEGATIVE
         elif polarity == 0:
-            analysis = 'Natural'
+            analysis = NATURAL
 
         analysed_tweets.append({
             'tweet': tweet,
@@ -88,3 +92,35 @@ def batch_tweets(user_id, number_of_tweets):
         token = tweets['meta'].get('next_token', None)
     
     return all_tweets
+
+
+def extract_numbers_from_tweets(tweets):
+    postive = 0 
+    negative = 0 
+    natural = 0
+    for tweet in tweets:
+        if tweet['analysis'] == POSITIVE:
+            postive+=1
+        elif tweet['analysis'] == NEGATIVE:
+            negative+=1
+        else:
+            natural +=1 
+    # percentage of each category 
+    postive_percentage  = postive / len(tweets)
+    negative_percentage  = negative / len(tweets)
+    natural_percentage  = natural / len(tweets)
+
+    return {
+        'positive': {
+            'count': postive,
+            'percentage': postive_percentage,
+        },
+        'negative': {
+            'count': negative,
+            'percentage': negative_percentage,
+        },
+        'natural': {
+            'count': natural,
+            'percentage': natural_percentage,
+        },
+    }

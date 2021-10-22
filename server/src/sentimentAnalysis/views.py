@@ -5,7 +5,8 @@ from sentimentAnalysis.utils import (
     clean_tweets, 
     analyse_tweets,
     extreme_tweets,
-    batch_tweets
+    batch_tweets,
+    extract_numbers_from_tweets,
 )
 
 # 3rd party 
@@ -46,5 +47,8 @@ class LatestTweetsAnalysis(APIView):
             return Response({'error': f'User with id of "{username}" is not found'})
         user_id = user_res['data']['id']  
         all_tweets = batch_tweets(user_id, number_of_tweets)
-        return Response(all_tweets)
+        cleaned_tweets = clean_tweets(all_tweets)
+        analyed_tweets = analyse_tweets(cleaned_tweets)
+        numbers = extract_numbers_from_tweets(analyed_tweets)
+        return Response(numbers)
         
