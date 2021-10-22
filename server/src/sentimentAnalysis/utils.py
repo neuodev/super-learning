@@ -70,6 +70,8 @@ def extreme_tweets(user_id):
     From latest 100 tweet will get the most postive and negative one
     """
     tweets = get_user_tweets(user_id, max_results=100)
+    if not tweets.get('data'):
+        return {}
     cleaned_tweets = clean_tweets(tweets.get('data', []))
     analysed_tweets = analyse_tweets(cleaned_tweets)
     sorted_tweets = sorted(analysed_tweets,key=lambda t: t['polarity'], reverse=True)
