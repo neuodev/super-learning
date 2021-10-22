@@ -74,4 +74,17 @@ def extreme_tweets(user_id):
         'most_negative': sorted_tweets[-1]
     }
 
+
+def batch_tweets(user_id, number_of_tweets):
+    all_tweets = []
+    token = None
+    api_calls = (int(number_of_tweets) // 100) or 1  
+    for _ in range(api_calls):
+        tweets = get_user_tweets(user_id,token=token,max_results=100)
+        for tweet in tweets.get('data', []):
+            all_tweets.append(tweet)
+        
+        # Get the next pagination token 
+        token = tweets['meta'].get('next_token', None)
     
+    return all_tweets
