@@ -7,4 +7,5 @@ export const TYPES = {
 export const ROUTES = {
   MNIST: "/mnist",
   WORD_EMBEDDING: "/word-embedding",
+  TWITTER_SETIMENT_ANALYSIS: "/twitter-sentiment-analysis",
 };

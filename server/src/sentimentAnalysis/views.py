@@ -1,31 +1,35 @@
+import requests
+from sentimentAnalysis.utils import (
+    get_user_tweets,
+    get_user_details, 
+    clean_tweets, 
+    analyse_tweets,
+    extreme_tweets
+)
+
+# 3rd party 
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-import requests
 import environ
 
-env = environ.Env()
-
-
-url = 'https://api.twitter.com/1.1/users/search.json'
-config = {}
-headers = {"Authorization": f"Bearer {env('TWITTER_BEARER_TOKEN')}"}
 class UsersSearch(APIView):
     def get(self, request):
-        query = request.query_params.get('q', None)
-        page = request.query_params.get('page', 1)
-        count = request.query_params.get('count', 1)
-        if not query:
-            return Response({ 'error': 'Query Param is required' }, status=400,)
+        username = request.query_params.get('username', None)
+        token = request.query_params.get('token', None)
+        max_results = request.query_params.get('max_results', None)
+        if not username:
+            return Response({ 'error': 'Missing Query Paramter' }, status=400)
 
-        res = requests.get(url, params={'q': query, 'page': page, 'count': count}, headers=headers).json()
-        users = []
-        for user in res:
-            users.append({
-                'profile_image_url': user['profile_image_url'],
-                'name': user['name'],
-                'username': user['screen_name'],
-                'verified': user['verified']
-            })
-        return Response(users)
+        user_res = get_user_details(username)
+        
+        if user_res.get('errors', None):
+            return Response({'error': f'User with id of "{username}" is not found'})
+        
+        user_id = user_res['data']['id'] 
+
+        tweets_res = get_user_tweets(user_id, token, max_results)
+        cleaned_tweets = clean_tweets(tweets_res.get('data', []))
+        analyed_tweets = analyse_tweets(cleaned_tweets)
+        extreme = extreme_tweets(user_id)
+        return Response({'user': user_res['data'], 'tweets': { 'all_tweets': analyed_tweets, 'extreme_tweets': extreme, 'meta': tweets_res['meta'] }})

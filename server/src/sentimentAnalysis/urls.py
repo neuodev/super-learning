@@ -3,5 +3,5 @@ from .views import UsersSearch
 
 
 urlpatterns = [
-    path('search/', UsersSearch.as_view(), name='users-search')
+    path('', UsersSearch.as_view(), name='twitter-sentiment-analysis')
 ]
