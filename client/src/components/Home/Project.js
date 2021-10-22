@@ -23,7 +23,7 @@ const Project = ({ project }) => {
         <ul className="flex items-center justify-start">
           {project.tags.map((tag, idx) => (
             <li
-              className="mr-3 text-xs font-light uppercase bg-gray-200 px-2 py-1 rounded-2xl"
+              className="mr-3 text-xs font-light uppercase bg-gray-200 px-2 py-1 rounded-2xl truncate"
               key={idx}
               data-for={"main" + idx}
               data-tip={tag.tip}
@@ -31,9 +31,9 @@ const Project = ({ project }) => {
             >
               <ReactTooltip
                 id={"main" + idx}
-                place={"top"}
-                type={"info"}
-                effect={"solid"}
+                place="top"
+                type="info"
+                effect="solid"
                 multiline={true}
               />
               {tag.tag}

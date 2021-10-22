@@ -40,6 +40,9 @@ export const PROJECTS_LIST = [
         tip: "Natural Language Proccessing",
       },
       {
+        tag: "Sentiment Analysis",
+      },
+      {
         tag: "Twitter API",
       },
     ],
