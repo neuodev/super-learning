@@ -101,7 +101,6 @@ const TwitterSentimentAnalysis = () => {
         )}
 
         {username && <LatestTweetsAnalysis username={username} />}
-        {userInfo && <pre>{JSON.stringify(userInfo, null, 2)}</pre>}
       </div>
     </div>
   );
