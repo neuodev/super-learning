@@ -14,8 +14,11 @@ const Search = ({ onSearch }) => {
       className="w-full flex items-center flex-col justify-center mt-10 mb-20"
     >
       <h1 className="text-xl text-gray-700 text-left mb-3">
-        Search for any user on <span className="font-bold">twitter</span> to see
-        his impact on the world{"!"}
+        Search for any user on{" "}
+        <span className="font-bold">
+          twitter <i className="fab fa-twitter"></i>
+        </span>{" "}
+        to see his impact on the world{"!"}
       </h1>
       <div
         ref={ref}
