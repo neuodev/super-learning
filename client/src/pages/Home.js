@@ -1,6 +1,6 @@
 import React from "react";
 import Projects from "../components/Home/Projects";
-import { PROJECTS_LIST } from "../utils/projectsList";
+import { PROJECTS_LIST } from "../utils/lists";
 
 const Home = () => {
   return (

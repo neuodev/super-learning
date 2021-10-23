@@ -11,7 +11,7 @@ const Search = ({ onSearch }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="w-full flex items-center flex-col justify-center mt-10 mb-20"
+      className="w-full flex items-center flex-col justify-center my-10 "
     >
       <h1 className="text-xl text-gray-700 text-left mb-3">
         Search for any user on{" "}

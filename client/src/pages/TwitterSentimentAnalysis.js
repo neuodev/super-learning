@@ -5,6 +5,7 @@ import LatestTweetsAnalysis from "../components/twitterSentimentAnalysis/LatestT
 import Search from "../components/twitterSentimentAnalysis/Search";
 import TweetsTable from "../components/twitterSentimentAnalysis/TweetsTable";
 import TwitterUser from "../components/twitterSentimentAnalysis/TwitterUser";
+import TwitterUsers from "../components/twitterSentimentAnalysis/TwitterUsers";
 
 const TwitterSentimentAnalysis = () => {
   const [username, setUsername] = useState("");
@@ -87,8 +88,9 @@ const TwitterSentimentAnalysis = () => {
     <div>
       <div className="my-7 mb-14">
         <Search username={username} onSearch={onSearch} />
+        <TwitterUsers onSearch={onSearch} username={username} />
         {error ? (
-          <div className="max-w-screen-lg mx-auto text-4xl">
+          <div className="max-w-screen-lg mx-auto text-4xl my-24">
             <h1 className="text-center">{error}</h1>
           </div>
         ) : (
