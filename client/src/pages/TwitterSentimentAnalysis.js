@@ -75,7 +75,7 @@ const TwitterSentimentAnalysis = () => {
 
   return (
     <div>
-      <div className="mt-7">
+      <div className="my-7 mb-14">
         <Search username={username} onSearch={onSearch} />
         {userInfo.user && (
           <TwitterUser loading={loading} error={error} user={userInfo.user} />
