@@ -31,7 +31,11 @@ const TwitterSentimentAnalysis = () => {
         });
         setUserInfo(data);
         setLoading(false);
-        setError("");
+        if (data.tweets.all_tweets.length === 0) {
+          setError("User has no tweets until now!");
+        } else {
+          setError("");
+        }
       } catch (error) {
         setLoading(false);
         setError(
@@ -112,15 +116,11 @@ const TwitterSentimentAnalysis = () => {
                   isNext={next}
                 />
               )}
-
-              {
-                <ExtremeTweets
-                  tweets={userInfo.tweets ? userInfo.tweets.extreme_tweets : {}}
-                  loading={loading}
-                  error={error}
-                />
-              }
-
+              <ExtremeTweets
+                tweets={userInfo.tweets ? userInfo.tweets.extreme_tweets : {}}
+                loading={loading}
+                error={error}
+              />
               {username && <LatestTweetsAnalysis username={username} />}
             </div>
           )
