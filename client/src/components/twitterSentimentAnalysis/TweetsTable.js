@@ -4,6 +4,8 @@ import Alert from "../common/Alert";
 import { TYPES } from "../../utils/types";
 import { getColorScale } from "../../utils";
 import Paginate from "./Paginate";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const TweetsTable = ({
   tweets,
@@ -16,11 +18,7 @@ const TweetsTable = ({
 }) => {
   return (
     <div className="max-w-screen-lg mx-auto">
-      {loading ? (
-        <div className="h-96">
-          <Spinner />
-        </div>
-      ) : error ? (
+      {error ? (
         <div>
           {" "}
           <Alert type={TYPES.ERROR} message={error} />
@@ -46,24 +44,32 @@ const TweetsTable = ({
               className="grid grid-cols-12 gap-5 mb-1 border-b text-gray-600"
             >
               <li className="col-span-6  px-4  py-3 truncate">
-                {idx + 1} ) {tweet.tweet}
+                {idx + 1} ) {tweet.tweet || <Skeleton />}
               </li>
               <li
                 className={`col-span-2 px-4 font-medium text-center rounded-md mb-1 py-3 ${getColorScale(
                   tweet.polarity
                 )} `}
               >
-                {tweet.polarity.toFixed(2)}
+                {typeof tweet.polarity === "number" ? (
+                  tweet.polarity.toFixed(2)
+                ) : (
+                  <Skeleton />
+                )}
               </li>
               <li
                 className={`col-span-2 px-4 font-medium text-center rounded-md mb-1 py-3 ${getColorScale(
                   tweet.subjectivity
                 )} `}
               >
-                {tweet.subjectivity.toFixed(2)}
+                {typeof tweet.subjectivity === "number" ? (
+                  tweet.subjectivity.toFixed(2)
+                ) : (
+                  <Skeleton />
+                )}
               </li>
               <li className="col-span-2 px-4  py-3 text-center">
-                {tweet.analysis}
+                {tweet.analysis || <Skeleton />}
               </li>
             </ul>
           ))}
