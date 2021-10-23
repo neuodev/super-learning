@@ -3,13 +3,14 @@ import { TYPES } from "../../utils/types";
 import Alert from "../common/Alert";
 import Spinner from "../common/Spinner";
 import VerifiedIcon from "../../assets/verified.png";
+import UserSkeleton from "./UserSkeleton";
 
 const TwitterUser = ({ user, error, loading }) => {
   return (
     <div className="max-w-screen-lg mx-auto mb-8">
-      {loading ? (
-        <div className="h-20">
-          <Spinner />
+      {true ? (
+        <div className="">
+          <UserSkeleton />
         </div>
       ) : error ? (
         <div>
