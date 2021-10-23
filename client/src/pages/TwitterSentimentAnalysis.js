@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ExtremeTweets from "../components/twitterSentimentAnalysis/ExtremeTweets";
+import LatestTweetsAnalysis from "../components/twitterSentimentAnalysis/LatestTweetsAnalysis";
 import Search from "../components/twitterSentimentAnalysis/Search";
 import TweetsTable from "../components/twitterSentimentAnalysis/TweetsTable";
 import TwitterUser from "../components/twitterSentimentAnalysis/TwitterUser";
@@ -98,6 +99,8 @@ const TwitterSentimentAnalysis = () => {
             error={error}
           />
         )}
+
+        {username && <LatestTweetsAnalysis username={username} />}
         {userInfo && <pre>{JSON.stringify(userInfo, null, 2)}</pre>}
       </div>
     </div>
