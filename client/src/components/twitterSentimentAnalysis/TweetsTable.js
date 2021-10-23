@@ -17,7 +17,7 @@ const TweetsTable = ({
   return (
     <div className="max-w-screen-lg mx-auto">
       {loading ? (
-        <div>
+        <div className="h-96">
           <Spinner />
         </div>
       ) : error ? (

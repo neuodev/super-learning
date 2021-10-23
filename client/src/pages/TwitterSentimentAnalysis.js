@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { TEST_USER_INFO } from "../components/twitterSentimentAnalysis/data";
+import ExtremeTweets from "../components/twitterSentimentAnalysis/ExtremeTweets";
 import Search from "../components/twitterSentimentAnalysis/Search";
 import TweetsTable from "../components/twitterSentimentAnalysis/TweetsTable";
+import TwitterUser from "../components/twitterSentimentAnalysis/TwitterUser";
 
 const TwitterSentimentAnalysis = () => {
   const [username, setUsername] = useState("");
@@ -59,23 +60,15 @@ const TwitterSentimentAnalysis = () => {
 
   const nextPage = () => {
     if (!userInfo.tweets && !userInfo.tweets.meta.next_token) {
-      // setNext(false);
       return;
     }
-
-    // setNext(true);
-    // setPrev(true);
     setToken(userInfo.tweets.meta.next_token);
   };
 
   const prevPage = () => {
     if (!userInfo.tweets && !userInfo.tweets.meta.previous_token) {
-      // setPrev(false);
       return;
     }
-
-    // setPrev(true);
-    // setNext(true);
     setToken(userInfo.tweets.meta.previous_token);
   };
 
@@ -83,6 +76,9 @@ const TwitterSentimentAnalysis = () => {
     <div>
       <div className="mt-7">
         <Search username={username} onSearch={onSearch} />
+        {userInfo.user && (
+          <TwitterUser loading={loading} error={error} user={userInfo.user} />
+        )}
         {username && (
           <TweetsTable
             loading={loading}
@@ -92,6 +88,14 @@ const TwitterSentimentAnalysis = () => {
             prevPage={prevPage}
             isPrev={prev}
             isNext={next}
+          />
+        )}
+
+        {userInfo.tweets && (
+          <ExtremeTweets
+            tweets={userInfo.tweets.extreme_tweets}
+            loading={loading}
+            error={error}
           />
         )}
         {userInfo && <pre>{JSON.stringify(userInfo, null, 2)}</pre>}
