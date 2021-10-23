@@ -100,13 +100,13 @@ const TwitterSentimentAnalysis = () => {
           />
         )}
 
-        {userInfo.tweets && (
+        {
           <ExtremeTweets
-            tweets={userInfo.tweets.extreme_tweets}
+            tweets={userInfo.tweets ? userInfo.tweets.extreme_tweets : {}}
             loading={loading}
             error={error}
           />
-        )}
+        }
 
         {username && <LatestTweetsAnalysis username={username} />}
       </div>

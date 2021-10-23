@@ -5,7 +5,7 @@ import VerifiedIcon from "../../assets/verified.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const TwitterUser = ({ user, error, loading }) => {
+const TwitterUser = ({ user, error }) => {
   return (
     <div className="max-w-screen-lg mx-auto mb-8">
       {error ? (
