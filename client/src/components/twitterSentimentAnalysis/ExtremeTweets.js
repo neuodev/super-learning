@@ -1,7 +1,6 @@
 import React from "react";
 import { TYPES } from "../../utils/types";
 import Alert from "../common/Alert";
-import Spinner from "../common/Spinner";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

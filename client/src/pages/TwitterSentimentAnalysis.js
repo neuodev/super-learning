@@ -41,7 +41,7 @@ const TwitterSentimentAnalysis = () => {
         );
       }
     }
-    fetchUsers();
+    if (username) fetchUsers();
 
     return () => {
       setLoading(false);
@@ -83,32 +83,48 @@ const TwitterSentimentAnalysis = () => {
     <div>
       <div className="my-7 mb-14">
         <Search username={username} onSearch={onSearch} />
-        {<TwitterUser loading={loading} error={error} user={userInfo.user} />}
-        {username && (
-          <TweetsTable
-            loading={loading}
-            error={error}
-            tweets={
-              userInfo.tweets
-                ? userInfo.tweets.all_tweets
-                : new Array(10).fill({})
-            }
-            nextPage={nextPage}
-            prevPage={prevPage}
-            isPrev={prev}
-            isNext={next}
-          />
+        {error ? (
+          <div className="max-w-screen-lg mx-auto text-4xl">
+            <h1 className="text-center">{error}</h1>
+          </div>
+        ) : (
+          username && (
+            <div>
+              {
+                <TwitterUser
+                  loading={loading}
+                  error={error}
+                  user={userInfo.user}
+                />
+              }
+              {username && (
+                <TweetsTable
+                  loading={loading}
+                  error={error}
+                  tweets={
+                    userInfo.tweets
+                      ? userInfo.tweets.all_tweets
+                      : new Array(10).fill({})
+                  }
+                  nextPage={nextPage}
+                  prevPage={prevPage}
+                  isPrev={prev}
+                  isNext={next}
+                />
+              )}
+
+              {
+                <ExtremeTweets
+                  tweets={userInfo.tweets ? userInfo.tweets.extreme_tweets : {}}
+                  loading={loading}
+                  error={error}
+                />
+              }
+
+              {username && <LatestTweetsAnalysis username={username} />}
+            </div>
+          )
         )}
-
-        {
-          <ExtremeTweets
-            tweets={userInfo.tweets ? userInfo.tweets.extreme_tweets : {}}
-            loading={loading}
-            error={error}
-          />
-        }
-
-        {username && <LatestTweetsAnalysis username={username} />}
       </div>
     </div>
   );
